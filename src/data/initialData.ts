@@ -1,0 +1,232 @@
+import { ChatSession } from '../types';
+
+export const INITIAL_SESSIONS: ChatSession[] = [
+  {
+    id: 'velomi-1',
+    title: 'دمج تطبيق VeloMI',
+    createdAt: Date.now() - 1000 * 60 * 60 * 2,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 2,
+    messages: [
+      {
+        id: 'm1',
+        role: 'user',
+        content: 'كيف يمكنني دمج واجهات برمجة التطبيقات (APIs) لتطبيق VeloMI مع خادم Node.js وتأمين الاتصال عبر JWT؟',
+        timestamp: Date.now() - 1000 * 60 * 60 * 2,
+      },
+      {
+        id: 'm2',
+        role: 'assistant',
+        content: `بصفتي **Velo MI 6.1 Ultra**، إليك الهيكلية المعمارية الأكثر كفاءة وأماناً لدمج وتأمين واجهات **VeloMI** البرمجية:
+
+### 1. تثبيت الحزم المطلوبة:
+\`\`\`bash
+npm install jsonwebtoken bcryptjs cors dotenv helmet
+\`\`\`
+
+### 2. وسيط الحماية الصارم (Velo Auth Middleware):
+\`\`\`typescript
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+
+export const verifyVeloMIToken = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'غير مصرح: الرمز مفقود أو غير صالح' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.VELOMI_JWT_SECRET!);
+    (req as any).user = decoded;
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: 'رمز الجلسة منتهي أو غير صالح' });
+  }
+};
+\`\`\`
+
+### 3. نقاط النهاية المتزامنة:
+- \`POST /api/velomi/sync\`: لمزامنة البيانات في الوقت الفعلي مع تشفير تام.
+- \`GET /api/velomi/metrics\`: لجلب المؤشرات والتحليلات الحية.
+
+الكود جاهز للإنتاج وخالٍ من الثغرات الأمنية الشائعة.`,
+        timestamp: Date.now() - 1000 * 60 * 58 * 2,
+      },
+    ],
+  },
+  {
+    id: 'velomi-2',
+    title: 'دمج تطبيق VeloMI',
+    createdAt: Date.now() - 1000 * 60 * 60 * 5,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 5,
+    messages: [
+      {
+        id: 'm3',
+        role: 'user',
+        content: 'أريد تهيئة قاعدة بيانات PostgreSQL لـ VeloMI مع جداول المستخدمين والاشتراكات.',
+        timestamp: Date.now() - 1000 * 60 * 60 * 5,
+      },
+      {
+        id: 'm4',
+        role: 'assistant',
+        content: `إليك مخطط قاعدة البيانات الأمثل لـ **VeloMI** باستخدام **PostgreSQL** عالي الأداء:
+
+\`\`\`sql
+-- جدول المستخدمين
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(150),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- جدول الاشتراكات
+CREATE TABLE subscriptions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    plan_tier VARCHAR(50) NOT NULL DEFAULT 'ultra',
+    status VARCHAR(30) NOT NULL DEFAULT 'active',
+    expires_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+\`\`\`
+هذا المخطط يدعم التوسيع الأفقي الآمن واستعلامات الفهارس السريعة.`,
+        timestamp: Date.now() - 1000 * 60 * 55 * 5,
+      },
+    ],
+  },
+  {
+    id: 'arabic-unit-1',
+    title: 'اختبار عربي الوحدة الأولى',
+    createdAt: Date.now() - 1000 * 60 * 60 * 24,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24,
+    messages: [
+      {
+        id: 'm5',
+        role: 'user',
+        content: 'ضع لي اختباراً شاملاً للوحدة الأولى في قواعد اللغة العربية والبلاغة مع نموذج الإجابة.',
+        timestamp: Date.now() - 1000 * 60 * 60 * 24,
+      },
+      {
+        id: 'm6',
+        role: 'assistant',
+        content: `### 📝 اختبار شامل: قواعد اللغة العربية والبلاغة (الوحدة الأولى)
+
+#### القسم الأول: النحو والإعراب
+**السؤال الأول:** أعرب ما تحته خط في الجملة التالية:
+> *"العلمُ **نورٌ** يهدي الحائرينَ، وإنّ **الاجتهادَ** مفتاحُ الفلاحِ."*
+
+1. **نورٌ**: خبر المبتدأ (العلم) مرفوع وعلامة رفعه الضمة الظاهرة على آخره.
+2. **الاجتهادَ**: اسم إنّ منصوب وعلامة نصبه الفتحة الظاهرة على آخره.
+
+---
+
+#### القسم الثاني: البلاغة العربية
+**السؤال الثاني:** حدد نوع التشبيه وقيمته الفنية في قول الشاعر:
+> *"أنت كالليث في الشجاعة والإقدامِ"*
+
+- **نوع التشبيه**: تشبيه تام الأركان (مفصل).
+- **قيمته الفنية**: توضيح المعنى وتجسيد صفة الإقدام والجسارة.`,
+        timestamp: Date.now() - 1000 * 60 * 50 * 24,
+      },
+    ],
+  },
+  {
+    id: 'blender-map-script',
+    title: 'Blender Map Script Request',
+    createdAt: Date.now() - 1000 * 60 * 60 * 48,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 48,
+    messages: [
+      {
+        id: 'm7',
+        role: 'user',
+        content: 'Write a Python script for Blender 4.0 that generates a 3D terrain heightmap from procedural noise and applies a material.',
+        timestamp: Date.now() - 1000 * 60 * 60 * 48,
+      },
+      {
+        id: 'm8',
+        role: 'assistant',
+        content: `Here is a complete, production-ready Python script generated by **Velo MI 6.1**:
+
+\`\`\`python
+import bpy
+
+def create_procedural_terrain():
+    if "Terrain_Procedural" in bpy.data.objects:
+        bpy.data.objects.remove(bpy.data.objects["Terrain_Procedural"], do_unlink=True)
+
+    bpy.ops.mesh.primitive_grid_add(x_subdivisions=128, y_subdivisions=128, size=20)
+    terrain = bpy.context.active_object
+    terrain.name = "Terrain_Procedural"
+
+    tex = bpy.data.textures.new("TerrainNoise", type='CLOUDS')
+    tex.noise_scale = 1.8
+    tex.noise_depth = 4
+
+    disp_mod = terrain.modifiers.new("Displace", type='DISPLACE')
+    disp_mod.texture = tex
+    disp_mod.strength = 3.2
+
+    bpy.ops.object.shade_smooth()
+    print("Velo MI Engine: Terrain generated successfully!")
+
+create_procedural_terrain()
+\`\`\``,
+        timestamp: Date.now() - 1000 * 60 * 45 * 48,
+      },
+    ],
+  },
+  {
+    id: 'white-bg-edit',
+    title: 'تعديل الخلفية البيضاء',
+    createdAt: Date.now() - 1000 * 60 * 60 * 72,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 72,
+    messages: [
+      {
+        id: 'm9',
+        role: 'user',
+        content: 'كيف أجعل خلفية عنصر في Tailwind CSS بتأثير زجاجي راقٍ وظل ناعم جداً؟',
+        timestamp: Date.now() - 1000 * 60 * 60 * 72,
+      },
+      {
+        id: 'm10',
+        role: 'assistant',
+        content: `إليك تنسيق الزجاج التفاعلي (Glassmorphism) المعتمد في **Velo MI**:
+
+\`\`\`html
+<div class="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/90 shadow-[0_10px_35px_rgba(0,102,255,0.08)] hover:border-blue-400/50 transition-all duration-300 p-6">
+  <!-- محتوى البطاقة الزجاجية النظيفة -->
+</div>
+\`\`\``,
+        timestamp: Date.now() - 1000 * 60 * 40 * 72,
+      },
+    ],
+  },
+  {
+    id: 'emotional-interaction',
+    title: 'تفاعل عاطفي',
+    createdAt: Date.now() - 1000 * 60 * 60 * 96,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 96,
+    messages: [
+      {
+        id: 'm11',
+        role: 'user',
+        content: 'أشعر ببعض الإرهاق وضغط العمل المتراكم اليوم، كيف يمكنني استعادة طاقتي؟',
+        timestamp: Date.now() - 1000 * 60 * 60 * 96,
+      },
+      {
+        id: 'm12',
+        role: 'assistant',
+        content: `أتفهم تماماً شعورك. الإرهاق علامة طبيعية من عقلك وجسدك لحاجتك إلى استراحة قصيرة وإعادة ضبط. 🌿
+
+1. **تفريغ الذهن الكامل (10 دقائق)**: ابتعد عن الشاشات وخذ نفساً هادئاً.
+2. **قائمة الإفراغ (Brain Dump)**: دوّن المهام لتقليل العبء على الذاكرة العاملة.
+3. **مهمة واحدة فقط**: أنجز أصغر خطوة تستغرق 10 دقائق فقط لتستعيد الشعور بالسيطرة.
+
+أنا هنا معك في Velo MI لترتيب وتسهيل أي مهمة تقنية أو فكرية.`,
+        timestamp: Date.now() - 1000 * 60 * 30 * 96,
+      },
+    ],
+  },
+];

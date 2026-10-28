@@ -1,0 +1,6 @@
+{
+  "name": "ChatGPT",
+  "description": "المساعد الذكي المتكامل للدردشة التفاعلية، البرمجة، معالجة الصور، التحليل والبحث المتقدم.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
